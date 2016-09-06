@@ -15,7 +15,7 @@ class SparkleGlitterBlaster(Weapon):
     name = "Sparkle Glitter Blaster"
 
     attack_power = 20 
-    attack_chance = 10 
+    attack_chance = 20 
 
 class ShimmerDagger(Weapon):
     name = "Shimmer Dagger"

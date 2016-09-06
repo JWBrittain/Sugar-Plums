@@ -463,11 +463,13 @@ class MonsterTwo(Room):
 
                 if result == 'Victory':
                     print "The defeated ogres flee the room, crying and hollering in terror.  They've"
-                    print "left behind heal potions!  You quickly pick them up."
+                    print "left behind two heal potions!  You quickly pick them up."
+                    self.ogres = False
                     player.heal_potions += 2
 
                 else:
                     print "The ogre's assult is too ferocious to you!  You flee before they can kill you."
+                    print "Maybe you need to find better weapons before you try again?"
                     player.hit_points = 10
                     return 'MonsterOne'
 
@@ -476,13 +478,79 @@ class MonsterTwo(Room):
                 print "no signs of monsters."
 
             #main room description
-            print "The room here "
+            print "Besides the pot of ogre stew, the room is pretty barren.  There's sack left"
+            print "by the ogres, some smouldering wood, and a door on the far side of the room."
+            print "\nWhat would you like to do?"
+            print "1) Look through the sack."
+            print "2) Investigate the smouldering logs."
+            print "3) Check the door to the west."
+            print "4) Go through the door to the east, back to the goblin's room."
+            print "5) Inventory management."
 
+            choice = functions.get_choice(5)
 
+            if choice == 1:
+                if self.glitter_blaster == True:
+                    print "Looking through the sack, you find a rusty pair of hedge trimmers, a large"
+                    print "jar holding an ogre's belly button lint collection."
+                    print "You also find a small magical wand.  You quickly pick up the wand, recognizing"
+                    print "it as the fabled Glitter Blaster of Septemius the Happy Baker!"
+                    glitter_blaster = objects.SparkleGlitterBlaster()
+                    player.inventory.append(glitter_blaster)
+                    self.glitter_blaster = False
 
-            #debugging
-            return 'Finished'
+                    print "\nWould you like to equip the weapon?"
+                    print "1) Yes,  2) No"
+                    choice2 = functions.get_choice(2)
+                    if choice2 == 1:
+                        player.equip_weapon(glitter_blaster)
+                        print "The wand feels natural in your hand, like a missing finger come home."
+                        functions.continue_game()
 
+                    else:
+                        print "Confident in your abilities, you slip the weapon into your sack."
+
+                else:
+                    print "You look through the sack, but find nothing but rusty hedge trimmers, and"
+                    print "a large jar holding an ogre's belly button lint."
+                    functions.continue_game()
+
+            elif choice == 2:
+                print "On closer examination, you realize the ogre's were burning cow patties!"
+                print "You scorch your hand on an ember as you poke around it, losing 2 hit points."
+                player.hit_points -= 2
+                if player.hit_points < 1:
+                    print "Fingers burning, you have to flee back into the goblin's room to find some water"
+                    print "to quench them."
+                    player.hit_points = 10
+                    return 'MonsterOne'
+
+            elif choice == 3:
+                print "The door has a large sign on it which ready: \"Da Boss\". The door isn't locked,"
+                print "but you feel great trepidation.  Is this really a good idea?  Behind this door"
+                print "is the only source of fairy dust in all of Fairy Land, and you just need"
+                print "it to do well in the bake off!  But are you truely ready?"
+                print "\nDo you venture through the door?"
+                print "1) Yes,  2) No"
+                choice = functions.get_choice(2)
+
+                if choice == 1:
+                    print "You take a deep breath and check your items, then step through the final door"
+                    print "of the dungeon."
+                    return "Boss"
+
+                else: 
+                    print "'No, I'm not quite ready yet' you think to yourself, and step away from the door."
+
+            elif choice == 4:
+                print "Unsure if you're ready to press on, you backtrack to the goblin's room."
+                return 'MonsterOne'
+
+            else:
+                functions.check_inventory(player)
+
+        print "Ops!  Something went wront."
+        return 'Error'
 
 
 class PuzzleOne(Room):
@@ -491,23 +559,31 @@ class PuzzleOne(Room):
         print "We are in puzzle room 1"
         return 'Finished'
 
-class PuzzleTwo(Room):
-    pass
-
-class Riddle(Room):
-    pass
-
-class LongHall(Room):
-    pass
-
 class Boss(Room):
-    pass
+
+    def enter(self, player):
+
+        boss = functions.boss_packer(1) 
+
+        print "<BOSS DESCRIPTION>"
+        print "<BOSS CONVERSATION?>"
+
+        fight = engines.CombatEngine()
+        results = fight.fight(player, boss)
+
+        if results == 'Victory':
+            print "Yay you won!"
+        else:
+            print "Dang! You run from the room at the last moment, determined to come back and try again."
+            return 'MonsterTwo'
+
+
+        
 
 #The map contains all the rooms from this map.  This is done here so that other maps
 #can be easily substituted
 class Map(object):
     rooms = { 'Prologue': Prologue(), 'Enterence' : Enterence(), 'MainHall' : MainHall(),
                 'MonsterOne' : MonsterOne(), 'MonsterTwo' : MonsterTwo(),
-                'PuzzleOne' : PuzzleOne(), 'PuzzleTwo' : PuzzleTwo(),
-                'Riddle' : Riddle(), 'LongHall' : LongHall(),
-                'Boss' : Boss(), 'Finished' : 'Finished'}
+                'PuzzleOne' : PuzzleOne(), 'Boss' : Boss(), 
+                'Error' : 'Error', 'Finished' : 'Finished'}
