@@ -2,7 +2,7 @@
 Simple text adventure game in python 2, just a learning exercise.
 
 This will be a simple text adventure game in python 2, written as an exercise.  It will have a simple combat engine, equipable weapons and armor, and an inventory system.
+It needs proofreading, the code should probably be cleaned up, and several rooms still need to be written.
 
 Will be GPL'd once I look into how to do that.  Although I doubt anyone would be interested in the code, just let me know if you are and I will expedite the licensing.  
 
-This text is a test.
