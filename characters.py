@@ -26,6 +26,10 @@ class Player(object):
     #we start out with nothing.
     inventory = []
 
+    #we need to store currently equiped items
+    equiped_weapon = []
+    equiped_armor = []
+
     def __init__(self):
         self.max_hit_points = random.randint(10,20)
         self.hit_points = self.max_hit_points
@@ -40,10 +44,20 @@ class Player(object):
     def equip_weapon(self, weapon):
         self.attack_power = weapon.attack_power
         self.attack_chance = weapon.attack_chance
+        #For the armor we must remove the currently equiped item.
+        if len(self.equiped_weapon) > 0: 
+            self.equiped_weapon.pop()
+        self.equiped_weapon.append(weapon)
 
     def equip_armor(self, armor):
         self.armor = self.armor + armor.armor
         self.dodge = self.dodge - armor.dodge_penalty
+        #first we must remove "no armor" if it is there.
+        for i in range(len(self.equiped_armor)):
+            if isinstance(self.equiped_armor[i], objects.NoArmor):
+                self.equiped_armor.pop(i)
+        #for armor we can just add it to the equiped list, as nothing conflicts.
+        self.equiped_armor.append(armor)
 
     def unequip_armor(self, armor):
         self.armor = self.armor - armor.armor

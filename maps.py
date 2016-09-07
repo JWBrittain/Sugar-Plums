@@ -535,8 +535,12 @@ class MonsterTwo(Room):
                 choice = functions.get_choice(2)
 
                 if choice == 1:
-                    print "You take a deep breath and check your items, then step through the final door"
+                    print "You take a deep breath and check your items.  This is your last chance"
+                    print "to check your inventory before the big confrontation."
+                    functions.check_inventory(player)
+                    print "When you are finished you step through the final door"
                     print "of the dungeon."
+                    functions.continue_game()
                     return "Boss"
 
                 else: 
@@ -565,20 +569,63 @@ class Boss(Room):
 
         boss = functions.boss_packer(1) 
 
-        print "<BOSS DESCRIPTION>"
-        print "<BOSS CONVERSATION?>"
+        print "The room is huge and dark, lit up by the red glow of fire burning somewhere beneath the floor."
+        print "At first you see nothing but shadows, and you worry that the fairy dust may not actually"
+        print "be here!  Then the room rumbles around you, and you catch a glimpse of a massive, reptillian"
+        print "leg moving in the corner of your eye.  When you look closer you see nothing."
+
+        print "\n\"And what is this little one?  A little one has come?\" It's voice is deep and you"
+        print "almost bolt out of the room."
+
+        print "\nWhat do you do?"
+        print "1) say \"Sir, I am", player.name, "\b, and I am here to get some fairy dust for by bundt cake."
+        print "2) say \"Look lizard breath, hand over the fairy dust or I'll wipe the walls with ya."
+        print "3) run out of the room!"
+
+        choice = functions.get_choice(3)
+
+        #A bit of fun in a covertsation, all paths lead to the battle, with is outside all the if statements.
+        if choice == 1:
+            print "First you must do a small errand for me, little one."
+            print "\nWhat do you say?"
+            print "1) What is it you want?"
+            print "2) Forget it you bird brain, hand over the stuff."
+
+            choice2 = functions.get_choice(2)
+
+            if choice == 1:
+                print "The room reverberates with his low, evil chuckling.  \"You must return to me the rod"
+                print "of evil evilness, held by the Priestess of Ultimate Bad Guys.  With that rod I can"
+                print "enslave all of Fairy Land, and then I, Foul Lizard of Antioch, will win the annual"
+                print "cook off with my rasberry lemon bars of pure evil!"
+
+                print "\nThere's no way you can let the lizard beat you at the bake off!  You get your weapons"
+                print "ready and charge in to the fight!"
+
+            else:
+                print "\"Never, you impertan-, impertin, impartantant, you stupid fool!  I will knock you down!\""
+                print "the creature screams at you.  Time to fight!"
+
+        else:
+            print "\"Never, you little pixie wimp!  You will feel the might of my candy club!"
 
         fight = engines.CombatEngine()
         results = fight.fight(player, boss)
 
         if results == 'Victory':
-            print "Yay you won!"
+            print "With a last strike from you", player.equiped_weapon[0].name, "the mighty lizard falls to"
+            print "the earth, and crawls from the room into his fire pit santuary.  Looking about"
+            print "the room you find a basin full of magic fairy dust!  You quickly fill your pouch"
+            print "with enough for your recepie, and after a final look around the evil smelling"
+            print "room, you depart for your kitchen.  At long last, all of Fairy Land will soon"
+            print "know the supreme deliciousness of your budndt cake!"
+            return 'Finished'
+
+
         else:
-            print "Dang! You run from the room at the last moment, determined to come back and try again."
+            print "Staggering from the lizard's monser blows, you run from the room at the last"
+            print "moment, determined to come back and try again."
             return 'MonsterTwo'
-
-
-        
 
 #The map contains all the rooms from this map.  This is done here so that other maps
 #can be easily substituted

@@ -19,6 +19,10 @@ class Engine(object):
         player.inventory.append(dagger)
         player.equip_weapon(dagger)
 
+        plate = objects.BreastPlate()
+        player.inventory.append(plate)
+        player.equip_armor(plate)
+
         shield = objects.MagicShield()
         player.inventory.append(shield)
         player.equip_armor(shield)

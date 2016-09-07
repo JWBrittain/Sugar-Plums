@@ -76,6 +76,11 @@ def check_inventory(player):
         print "----------" * 5
         print "Welcome to inventory management!  You have:"
         print player.heal_potions, "heal potions."
+        print "\nCurrently equiped weapon:", player.equiped_weapon[0].name, "\b."
+        print "\nCurrently equiped armor:"
+        for i in range(0, len(player.equiped_armor)):
+            print "\t", player.equiped_armor[i].name
+
         print "\nYour items:"
        
         count = 1
