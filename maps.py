@@ -576,10 +576,183 @@ class MonsterTwo(Room):
 
 
 class PuzzleOne(Room):
+
+    #room contents, set to true until they player gets them.
+    magic_sword = True
+    plate_armor = True
+    heal_potions = 5
+
+    riddle_one_solved = False
+    riddle_two_solved = False
+    riddle_three_solved = False
+    riddle_four_solved = False
+    riddle_five_solved = False
+
+    #The riddle order is meant to be random and confusing.  The fairy moves on
+    #from wrong answers and cycles through them at random until they are all solved.
+    #each riddle should include an escape mechanism
+    def riddle_one(self,player):
+        print "Oh I know, I'll ask the one about the tiger."
+        print "What has a head, a tail, is brown, but has no legs?"
+        print "\nWhat do you say?"
+        print "1)  \"Uh, hello, my name is", player.name, "\b."
+        print "2)  \"A penny.\""
+        print "3)  \"A tiger?\""
+        print "4)  \"A brown snake."
+        print "5)  \"Never mind this, I'm leaving the room.\""
+        choice = functions.get_choice(5)
+        
+        if choice == 1:
+            print "\"What does that have to do with anything, silly?  My name is Igglesbottom"
+            print "for all the difference it makes!  Silly fairy!"
+            return
+        elif choice == 2:
+            print "\"What?  You got it right?  How did you guess that?  I'm amazed.\"  She is"
+            print "obviously delighted.  \"Let me see here, for that one you win, let me see,\""
+            print "She pulls out a small scrap of paper from a puch at her side."
+            print "lets see, yes, you win this magical breast plate!\"  She pulls from the"
+            print "timy pouch a full breast plate that looks custom made for your fairy body."
+            self.riddle_one_solved = True
+            breast_plate = objects.BreastPlate()
+            player.inventory.append(breast_plate)
+            print "\nWould you like to equip it?"
+            print "1) Yes,  2) No"
+            choice = functions.get_choice(2)
+            if choice == 1:
+                player.equip_armor(breast_plate)
+                print "You slip into the magical armor.  It fits you perfectly!"
+            else:
+                print "You slip the armor into your pack, just in case you need it later."
+            functions.continue_game()
+            return
+        elif choice == 3:
+            print "What, a tiger?  Wow you sure are silly!  A tiger has legs.  Well, I guess not"
+            print "all tigers have legs, but as far as we're concerned.  Although maybe it could"
+            print "be a drawing of a tiger with no legs.  But no, you didn't say a drawing.  Anyway"
+            print "that's not the correct answer."
+            functions.continue_game()
+            return
+        elif choice == 4:
+            print "A brown snake?!  No, of course it isn't a brown snake, a brown snake doesn't have a head."
+            print "Silly you!  Who ever heard of a brown snake with no legs either.  Oh my goodness.  Okay,"
+            print "they do have tails, I grant you that.  Nope, you're gonna have to try again!"
+            functions.continue_game()
+            return
+        else:
+            print "Oh, you're no fun anymore!  And I thought you were going to be fun."
+            functions.continue_game()
+            return 'Escape'
+
+    def riddle_two(self,player):
+        print "\"Okay okay, this is a good one.  I'm gonna tell you the moon one, ready?"
+        print "What has a hand but isn't alive?\""
+        print "\nWhat do you say?"
+        print "1) A parsnip"
+        print "2) Applause"
+        print "3) A leopard skin rug"
+        print "4) A mitten"
+        print "5) Never mind this, I'm getting out of here."
+
+        choice = functions.get_choice(5)
+
+        if choice == 1:
+            print "\"A what?  A parsnip?  Are you crazy, parsnips don't have hands. No no no, or non"
+            print "as the french would say.  You're going to have to try again."
+            return
+        elif choice == 2:
+            print "\"
+
+
+
+    def riddle_three(self,player):
+        print "Riddle 3"
+    def riddle_four(self, player):
+        print "Riddle 4"
+    def riddle_five(self, player):
+        print "Riddle 5"
+
+    def riddle_picker(self, player):
+        sanity_check = 1
+        while sanity_check < 100:
+            choice = random.randint(1,5)
+
+            if choice == 1 and self.riddle_one_solved == False: 
+                result = self.riddle_one(player)
+                if result == 'Escape':
+                    return 'Escape'
+                elif result == 'Solved':
+                    self.riddle_one_solved = True
+
+            elif choice == 2 and self.riddle_two_solved == False: 
+                result = self.riddle_two(player)
+                if result == 'Escape':
+                    return 'Escape'
+                elif result == 'Solved':
+                    self.riddle_two_solved = True
+        
+            elif choice == 3 and self.riddle_three_solved == False: 
+                result = self.riddle_three(player)
+                if result == 'Escape':
+                    return 'Escape'
+                elif result == 'Solved':
+                    self.riddle_three_solved = True
+
+            elif choice == 4 and self.riddle_four_solved == False: 
+                result = self.riddle_four(player)
+                if result == 'Escape':
+                    return 'Escape'
+                elif result == 'Solved':
+                    self.riddle_four_solved = True
+
+            elif choice == 5 and self.riddle_five_solved == False: 
+                result = self.riddle_five(player)
+                if result == 'Escape':
+                    return 'Escape'
+                elif result == 'Solved':
+                    self.riddle_four_solved = True
+            #or else all are solved.
+            if self.riddle_one == True and self.riddle_two == True and self.riddle_three == True and self.riddle_four == True and self.riddle_five == True:
+                return "finished"
     
     def enter(self, player):
-        print "We are in puzzle room 1"
-        return 'Finished'
+        print "The walls of this room are covered in drawings of lillies and butterflies,"
+        print "drawn colorfully by an amature.  In the center a little pixie hovers, paint"
+        print "brush in hand."
+
+        if self.magic_sword == True and self.plate_armor == True and self.heal_potions > 0:
+            print "\"Oh hi!\" she squeaks at you as you come in.  \"I'm so happy that you're here!\""
+            print "You smile back, unsure of what this is all about.  \"Okay, so we have to play"
+            print "the game.  It's in the rules, look see,\" she says as she pulls out a small"
+            print "book.  \"Section 3, paragraph 4, the player must answer the riddles to get"
+            print "magic items to help her on her quest.\"  Well that's pretty clear right?  Where"
+            print "would you like to start?  Oh I know the perfect one!"
+            done = ""
+            while done != "finished":
+                done = self.riddle_picker(player)
+                if done == 'Escape':
+                    print "Before the fairy can get another word out, you quickly leave the room."
+                    return 'MainHall'
+
+            print "Well, that's all my riddles honey!  Good job!  Time to be about your quest now."
+            print "The little fairy picks up her brush and starts coloring in a pansie on her mural."
+
+#            if choice == 1:
+#                print "What?  What does that have to do with anything?", player.name, "Isn't the answer"
+#                print "To any riddle.  okay, I know, I'll ask you another riddle first."
+#
+#            if choice == 5:
+#                print "\"Oh, well I'm sorry to see you go!  And I thought this was going to be"
+#                print "so much fun!\" You make a few pleasent excuses, then back out of the room."
+#                return 'MainHall'
+#            
+
+        else:
+            print "The fairy Igglesbottom hums a little song to herself as she paints a picture"
+            print "on the wall of a duck riding on a platapus' back.  She says nothing,"
+            print "too distracted by her work to even notice you.  After a moment, you turn"
+            print "and leave her to her work."
+            functions.continue_game()
+            return 'MainHall'
 
 class Boss(Room):
 
