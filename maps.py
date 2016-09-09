@@ -612,7 +612,6 @@ class PuzzleOne(Room):
             print "She pulls out a small scrap of paper from a puch at her side."
             print "lets see, yes, you win this magical breast plate!\"  She pulls from the"
             print "timy pouch a full breast plate that looks custom made for your fairy body."
-            self.riddle_one_solved = True
             breast_plate = objects.BreastPlate()
             player.inventory.append(breast_plate)
             print "\nWould you like to equip it?"
@@ -624,7 +623,7 @@ class PuzzleOne(Room):
             else:
                 print "You slip the armor into your pack, just in case you need it later."
             functions.continue_game()
-            return
+            return 'Solved'
         elif choice == 3:
             print "What, a tiger?  Wow you sure are silly!  A tiger has legs.  Well, I guess not"
             print "all tigers have legs, but as far as we're concerned.  Although maybe it could"
@@ -657,24 +656,125 @@ class PuzzleOne(Room):
 
         if choice == 1:
             print "\"A what?  A parsnip?  Are you crazy, parsnips don't have hands. No no no, or non"
-            print "as the french would say.  You're going to have to try again."
+            print "as the french would say.  You're going to have to try again.\""
+            functions.continue_game()
             return
         elif choice == 2:
-            print "\"
-
-
+            print "\"Applause?  I get it, give you a hand, ha, that's pretty good!  But no, that's not the"
+            print "answer.  See, it says right here, section 3, page 253, paragraph 2:  No player shall"
+            print "answer close to the right answer, the answer must be the exact answer as specified by"
+            print "the party of the first part, the party of the second part, or the party of the third"
+            print "part, if two thirds of parties four, five, six, and seven agree.  So no, you'll have"
+            print "to try again, I'm sorry!"
+            functions.continue_game()
+            return
+        elif choice == 3:
+            print "Okay, now you're not even trying.  No no no, that is incorrect!"
+            functions.continue_game()
+            return
+        elif choice == 4:
+            print "Lets see, hmm, a mitten.  Yep!  Says it right here, a mitten!  Great job!  And as your"
+            print "reward I shall grant to thee, I just love using that high falutin' language you know,"
+            print "I shall grant to thee two potions of healing!  Yay!"
+            player.heal_potions += 2
+            self.heal_potions -= 2
+            functions.continue_game()
+            return 'Solved'
+        else:
+            print "You're leaving?  Oh and I thought we were having so much fun!"
+            functions.continue_game()
+            return 'Escape'
 
     def riddle_three(self,player):
-        print "Riddle 3"
+        print "\"Okay okay, this s a good one.  What do you get when you cross a cantalope and an eel?"
+        print "OKay, okay, that's not really a riddle, I don't know what that would be!  Okay, here we"
+        print "go:  Everyone has one, but nobody can use ever use it.  What is it?  Huh?\""
+        print "\nWhat do you say?"
+        print "1) A name"
+        print "2) an eel?"
+        print "3) A antelope?"
+        print "4) A shadow"
+        print "5) Nevermind, I don't want to play anymore."
+        choice = functions.get_choice(5)
+        
+        if choice == 1:
+            print "\"An name?  Well, my name is Igglesbottom, and I use it all the time!  No"
+            print "that's silly, you're silly!  Lets try another one.\""
+            functions.continue_game()
+            return
+        elif choice == 2:
+            print "\"No no, you're confused about this one.  I knew I shouldn't have made the joke about"
+            print "the eel.  Now you're all mixed up.  Look, lets just try another one.\""
+            functions.continue_game()
+            return
+        elif choice == 3:
+            print "\"What?  That doesn't make any sense!  Oh, I think you're thinking of the cantalope and"
+            print "the eel.  Look, that wasn't a real riddle, okay, you need to listen to the question.\""
+            functions.continue_game()
+            return
+        elif choice == 4:
+            print "\"A shadow!  That's right!  You got it right!  Oh this is so exciting.  Okay,"
+            print "for getting that one right you get. . . a magic sword!  Its the fabled magic"
+            print "Rainbow Sparkle Sword of the fairy Gimbly Two Tones.  Here ya go!\""
+            sword = objects.RainbowSparkleSword()
+            player.inventory.append(sword)
+            print "\nWould you like to equip the sword?"
+            print "1) Yes,  2) No"
+            choice = functions.get_choice(2)
+            if choice == 1:
+                print "The sword is light and comfortable in your hand."
+                player.equip_weapon(sword)
+                functions.continue_game()
+            else:
+                print "You slip the magic sword into your pack in case you need it later."
+                functions.continue_game()
+            return 'Solved'
+        else:
+            print "\"Oh but we were just getting started!  Oh man, and I thought you were going to be fun.\""
+            functions.continue_game()
+            return 'Escape'
+
     def riddle_four(self, player):
-        print "Riddle 4"
-    def riddle_five(self, player):
-        print "Riddle 5"
+        print "\"Here we go, this is a tough one:  What tastes better than it smells?\""
+        print "\nWhat do you say?"
+        print "1)  Hasenpfeffer"
+        print "2)  Bubblegum"
+        print "3)  Your tongue"
+        print "4)  Friendship"
+        print "5)  I don't want to play anymore, goodbye!"
+
+        choice = functions.get_choice(5)
+
+        if choice == 1:
+            print "No no, that's rabbit stew.  Smells fine!  I see you're going to need some practice,"
+            print "so lets try another one."
+            functions.continue_game()
+            return
+        elif choice == 2:
+            print "Oh I love the way bubblegum smells!  Yum!  Makes me want to chew a piece right now."
+            print "Lets just move along then, okay?"
+            functions.continue_game()
+            return
+        elif choice == 3:
+            print "Lets see, hmm, yep!  Says it right here, tongue.  Well, okay!  You won some more"
+            print "heal potions!  Yay!"
+            player.heal_potions += 3
+            functions.continue_game()
+            return 'Solved'
+        elif choice == 4:
+            print "No no no, friendhip doesn't taste or smell!  Are you sure you know what you're talking"
+            print "about?  Lets just move on, okay?"
+            functions.continue_game()
+            return
+        else:
+            print "But we were just starting to have fun!  Where are you going?"
+            functions.continue_game()
+            return 'Escape'
 
     def riddle_picker(self, player):
         sanity_check = 1
         while sanity_check < 100:
-            choice = random.randint(1,5)
+            choice = random.randint(1,4)
 
             if choice == 1 and self.riddle_one_solved == False: 
                 result = self.riddle_one(player)
@@ -704,14 +804,14 @@ class PuzzleOne(Room):
                 elif result == 'Solved':
                     self.riddle_four_solved = True
 
-            elif choice == 5 and self.riddle_five_solved == False: 
-                result = self.riddle_five(player)
-                if result == 'Escape':
-                    return 'Escape'
-                elif result == 'Solved':
-                    self.riddle_four_solved = True
+#            elif choice == 5 and self.riddle_five_solved == False: 
+#                result = self.riddle_five(player)
+#                if result == 'Escape':
+#                    return 'Escape'
+#                elif result == 'Solved':
+#                    self.riddle_four_solved = True
             #or else all are solved.
-            if self.riddle_one == True and self.riddle_two == True and self.riddle_three == True and self.riddle_four == True and self.riddle_five == True:
+            if self.riddle_one == True and self.riddle_two == True and self.riddle_three == True and self.riddle_four == True:
                 return "finished"
     
     def enter(self, player):

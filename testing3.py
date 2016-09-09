@@ -50,7 +50,7 @@ class Engine(object):
         player.hit_points = 50
         player.heal_potions = 40
 
-        room = map_one.rooms['MonsterTwo']
+        room = map_one.rooms['PuzzleOne']
 
         while room != 'Finished':
             next_room = room.enter(player)
