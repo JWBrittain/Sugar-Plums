@@ -811,8 +811,10 @@ class PuzzleOne(Room):
 #                elif result == 'Solved':
 #                    self.riddle_four_solved = True
             #or else all are solved.
-            if self.riddle_one == True and self.riddle_two == True and self.riddle_three == True and self.riddle_four == True:
-                return "finished"
+            if self.riddle_one_solved == True and self.riddle_two_solved == True and self.riddle_three_solved == True and self.riddle_four_solved == True:
+                #debugging only
+                print "All Solved"
+                return "Finished"
     
     def enter(self, player):
         print "The walls of this room are covered in drawings of lillies and butterflies,"
@@ -827,24 +829,17 @@ class PuzzleOne(Room):
             print "magic items to help her on her quest.\"  Well that's pretty clear right?  Where"
             print "would you like to start?  Oh I know the perfect one!"
             done = ""
-            while done != "finished":
+            while done != "Finished":
                 done = self.riddle_picker(player)
                 if done == 'Escape':
                     print "Before the fairy can get another word out, you quickly leave the room."
+                    functions.continue_game()
                     return 'MainHall'
 
             print "Well, that's all my riddles honey!  Good job!  Time to be about your quest now."
             print "The little fairy picks up her brush and starts coloring in a pansie on her mural."
-
-#            if choice == 1:
-#                print "What?  What does that have to do with anything?", player.name, "Isn't the answer"
-#                print "To any riddle.  okay, I know, I'll ask you another riddle first."
-#
-#            if choice == 5:
-#                print "\"Oh, well I'm sorry to see you go!  And I thought this was going to be"
-#                print "so much fun!\" You make a few pleasent excuses, then back out of the room."
-#                return 'MainHall'
-#            
+            functions.continue_game()
+            return 'MainHall'
 
         else:
             print "The fairy Igglesbottom hums a little song to herself as she paints a picture"
