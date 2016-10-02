@@ -33,6 +33,8 @@ class Player(object):
 
     #This should be changed at some point for user input
     name = "Player"
+    combat_name = "Player"
+    combat_name_cap = "Player"
 
     dodge_bonus = 0
     attack_bonus = 0
@@ -104,10 +106,15 @@ class Monster(object):
     attack_bonus = 0
     dodge_bonus = 0
     name = "You forgot to name the subclass"
+    combat_name = "this needs to be changed by the subclass"
+    combat_name_cap = "You forgot this too"
 
 class Ogre(Monster):
 
     name = "Ogre"
+    combat_name = "the ogre"
+    combat_name_cap = "The ogre"
+
 
     def __init__(self):
         self.hit_points = random.randint(5,10)
@@ -119,6 +126,8 @@ class Ogre(Monster):
 class Goblin(Monster):
 
     name = "Goblin"
+    combat_name = "the goblin"
+    combat_name_cap = "The goblin"
 
     def __init__(self):
         self.hit_points = random.randint(5,7)
@@ -130,6 +139,8 @@ class Goblin(Monster):
 class GiantRat(Monster):
 
     name = "Giant Rat"
+    combat_name = "the giant rat"
+    combat_name_cap = "The giant rat"
 
     def __init__(self):
         self.hit_points = random.randint(1,3)
@@ -142,6 +153,8 @@ class Boss(Monster):
 
     #Change this
     name = "Boss"
+    combat_name = "the boss"
+    combat_name_cap = "The boss"
 
     def __init__(self):
         self.hit_points = random.randint(20,30)

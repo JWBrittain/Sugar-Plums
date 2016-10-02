@@ -553,10 +553,12 @@ class MonsterTwo(Room):
                 choice = functions.get_choice(2)
 
                 if choice == 1:
-                    print "You take a deep breath and check your items.  This is your last chance"
-                    print "to check your inventory before the big confrontation."
-                    functions.check_inventory(player)
-                    print "When you are finished you step through the final door"
+                    print "You take a deep breath and steady yourself.  This is your last chance"
+                    print "to check your inventory before the big confrontation, would you like to?"
+                    print "1) check inventory, 2) continue"
+                    if functions.get_choice(2) == 1:
+                        functions.check_inventory(player)
+                    print "When you are ready you step through the final door"
                     print "of the dungeon."
                     functions.continue_game()
                     return "Boss"
@@ -587,6 +589,8 @@ class PuzzleOne(Room):
     riddle_three_solved = False
     riddle_four_solved = False
     riddle_five_solved = False
+    
+    all_solved = False
 
     #The riddle order is meant to be random and confusing.  The fairy moves on
     #from wrong answers and cycles through them at random until they are all solved.
@@ -813,7 +817,7 @@ class PuzzleOne(Room):
             #or else all are solved.
             if self.riddle_one_solved == True and self.riddle_two_solved == True and self.riddle_three_solved == True and self.riddle_four_solved == True:
                 #debugging only
-                print "All Solved"
+                self.all_solved = True 
                 return "Finished"
     
     def enter(self, player):
@@ -821,7 +825,7 @@ class PuzzleOne(Room):
         print "drawn colorfully by an amature.  In the center a little pixie hovers, paint"
         print "brush in hand."
 
-        if self.magic_sword == True and self.plate_armor == True and self.heal_potions > 0:
+        if self.all_solved == False:
             print "\"Oh hi!\" she squeaks at you as you come in.  \"I'm so happy that you're here!\""
             print "You smile back, unsure of what this is all about.  \"Okay, so we have to play"
             print "the game.  It's in the rules, look see,\" she says as she pulls out a small"

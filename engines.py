@@ -31,6 +31,10 @@ class Engine(object):
 
         print "Welcome to the game!  Please enter your name:"
         player.name = raw_input("> ")
+        #we need name_cap to be compatable with the monster naming convention
+        player.combat_name = player.name
+        player.combat_name_cap = player.name
+
 
         room = map_one.rooms['Prologue']
       
@@ -138,14 +142,14 @@ class CombatEngine(object):
             damage = (random.randint(1,3) + attacker.attack_power - attacked.armor)
             #We need to make sure the defender isn't healed if their armor is stronger than the attack
             if damage < 0: damage = 0
-            print "The", attacker.name, "has struck, hurting the", attacked.name, damage, "hit points." 
+            print attacker.combat_name_cap, "has struck, hurting", attacked.combat_name, damage, "hit points." 
             attacked.hit_points = attacked.hit_points - damage 
             #We need to check if the defender has any hit points left, so we can print out the right message.
             #Note that death is not handled, as it's different depending on whether the attacker is the player
             #or a monster.
             if attacked.hit_points < 1:
-                print "The", attacked.name, "has been defeated!"
+                print attacked.combat_name_cap, "has been defeated!"
             else:
-                print "The", attacked.name, "now has", attacked.hit_points, "hit points."
+                print attacked.combat_name_cap, "now has", attacked.hit_points, "hit points."
         else:
-            print "The", attacker.name, "has missed!"
+            print attacker.combat_name_cap, "has missed!"
